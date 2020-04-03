@@ -25,7 +25,7 @@ module.exports={ async authenticate(req,res,next){
       }
     catch(err)
     {
-        return res.send(err.message);
+        return res.send(err);
     }
 }//,
 //async 

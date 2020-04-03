@@ -15,12 +15,11 @@ var UserSchema = new mongoose.Schema({
         trim: true,
         required: true
     },
-
-    password: {
+   /* password: {
         type: String,
         trim: true,
         required: true
-    },
+    },*/
     book:
     {
         type: Schema.Types.ObjectId,
@@ -35,7 +34,7 @@ var UserSchema = new mongoose.Schema({
            }, 
         },
      }],
-     gender : String,
+    // gender : String,
 
 },
     { timestamps: true }

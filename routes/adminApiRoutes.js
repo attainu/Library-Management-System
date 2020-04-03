@@ -3,20 +3,20 @@ const router = express.Router();
 const {authenticate}=require('../middlewares/authenticate')
 const {adminRegister,adminLogin,adminUpdate,adminLogout,allAdmins,specificAdmin,deleteAdmin} = require('../controllers/adminApiController');
 
-router.post('/admin/register', adminRegister);
-router.post('/admin/login',adminLogin);
-router.patch('/admin/:adminId',authenticate,adminUpdate)
-router.delete('/admin/logout',authenticate,adminLogout);
-router.get('/admin/all',authenticate,allAdmins);
-router.get('/admin/:adminId',authenticate,specificAdmin);
-router.delete('/admin/:adminId',authenticate,deleteAdmin);
+router.post('/register', adminRegister);
+router.post('/login',adminLogin);
+router.patch('/:adminId',authenticate,adminUpdate)
+router.delete('/logout',authenticate,adminLogout);
+router.get('/alladmins',authenticate,allAdmins);
+router.get('/:adminId',authenticate,specificAdmin);
+router.delete('/:adminId',authenticate,deleteAdmin);
 
 
 module.exports = router;
 
 
 /*
-router.post('/adminregister', adminRegister);
+router.post('/admin/register', adminRegister);
 router.post('/adminlogin',adminLogin);
 router.patch('/allAdmins/:adminId',authenticate,adminUpdate)
 router.delete('/adminlogout',authenticate,adminLogout);

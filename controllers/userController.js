@@ -20,7 +20,7 @@ const createUser = async(req, res) => {
     try {
     req.body.password = await bcrypt.hash(req.body.password, 10);
     var user = await new User(req.body).save();
-    res.json({ "message": "create user",user });
+    res.json({ "message": "created user",user });
     } catch (error) {
         res.status(400).json(error);
     }

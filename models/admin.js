@@ -1,33 +1,35 @@
-var mongoose = require('mongoose');
-var bcrypt = require('bcryptjs');
-var Schema = mongoose.Schema;
+const mongoose = require('mongoose');
+const bcrypt = require('bcryptjs');
+const Schema = mongoose.Schema;
 
 //CREATE ADMIN SCHEMA
-var adminSchema = new Schema(
+const adminSchema = new Schema(
     {
-        adminName: {
+       name: {
         type: String,
         required: true,
         trim: true
       },
-      adminEmailId: {
+      email: {
         unique: true,
         type: String,
         required: true,
         trim: true
       },
-      adminPassword: {
+      password: {
         type: String,
         required: true,
         trim: true
       },
-      adminAddress:{
+      address:{
           type:String,
-          required:true
+          required:true,
+          trim: true
       },
-      adminPhoneNo:{
+      phoneno:{
           type:Number,
-          required:true
+          required:true,
+          trim: true
       },
       date:{
         type:Date,
@@ -40,10 +42,11 @@ var adminSchema = new Schema(
       }
     }
      );
-
+ const Admin = mongoose.model("admin", adminSchema);
+  module.exports = Admin;
 
 //DEFINE PRE METHOD TO HASH PASSWORD 
-adminSchema.pre('save', function (next) {
+ /*adminSchema.pre('save', function (next) {
     var admin = this;
     if(admin.isModified('adminPassword')){
       bcrypt.hash(admin.adminPassword, 10)
@@ -62,7 +65,7 @@ adminSchema.pre('save', function (next) {
     }
     
   });
-  /*
+ 
   userSchema.pre("save", function(next) {
     var user = this;
     // Check whether password field is modified
@@ -80,6 +83,5 @@ adminSchema.pre('save', function (next) {
   });*/
   
 
-var Admin = mongoose.model("admin", adminSchema);
-module.exports = Admin;
+
 

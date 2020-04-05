@@ -4,12 +4,12 @@ var logSchema = new Schema(
     {
         userId: {
         unique: true,
-        type: Number,
+        type: String,
         required: true,
         trim: true
       },
       bookId: {
-        type: Number,
+        type: String,
         required: true,
         trim: true
       },

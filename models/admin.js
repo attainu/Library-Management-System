@@ -45,6 +45,16 @@ const adminSchema = new Schema(
  const Admin = mongoose.model("admin", adminSchema);
   module.exports = Admin;
 
+
+
+
+
+
+
+
+
+
+  
 //DEFINE PRE METHOD TO HASH PASSWORD 
  /*adminSchema.pre('save', function (next) {
     var admin = this;

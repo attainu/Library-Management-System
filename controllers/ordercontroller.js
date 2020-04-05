@@ -1,4 +1,4 @@
-var Order = require('./modules/order');
+var Order = require('../models/order');
 
 
 

@@ -84,7 +84,7 @@ adminApiController.deleteAdmin= async (req, res) => {
     res.json(removedAdmin);
    }
  catch(err)  {
-    res.json({message:err});
+   res.json({message:err});
  }
 };
 

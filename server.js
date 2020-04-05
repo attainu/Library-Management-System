@@ -17,8 +17,6 @@ const logApiRoutes=require('./routes/logApiRoutes');
 var indexRouter = require('./routes/indexrouters');
 var usersRouter = require('./routes/userrouters');
 var bookRouter = require('./routes/bookroutes');
-//require('./modules/mongo');
-
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -34,9 +32,9 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/books', bookRouter);
-//app.use(adminApiRoutes);
-//app.use(logApiRoutes);
-app.use('/admin/',adminApiRoutes);
+app.use('/log',logApiRoutes);
+app.use('/admin',adminApiRoutes);
+
 //BODY PARSER
 app.use(bodyParser.json());
 

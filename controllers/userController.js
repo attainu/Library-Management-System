@@ -1,5 +1,5 @@
-var User = require('../modules/user');
-var bcrypt = require('bcrypt');
+var User = require('../models/user');
+var bcrypt = require('bcryptjs');
 const getAllUsers = async(req, res) => {
     // get all users
     const users = await User.find({}).populate('book').exec();
@@ -16,13 +16,15 @@ const getUser = async (req,res) =>{
     }
 }
 const createUser = async(req, res) => {
+    console.log("creTE USER")
+    console.log(req.body);
     //create a new user
     try {
-    req.body.password = await bcrypt.hash(req.body.password, 10);
-    var user = await new User(req.body).save();
-    res.json({ "message": "created user",user });
-    } catch (error) {
-        res.status(400).json(error);
+       const user = await new User(req.body).save();
+       res.json({ "message": "created user",user });
+      } 
+    catch(error) {
+        res.status(400).json(error.message);
     }
     
 }

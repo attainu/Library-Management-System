@@ -1,4 +1,4 @@
-var Book = require('../modules/book');
+const Book = require('../models/book');
 const getAllBooks = async(req, res) => {
     // get all books
     const books = await Book.find({});
@@ -17,6 +17,7 @@ const getBook = async (req,res) =>{
 const createBook = async(req, res) => {
     //create a new book
     try {
+        console.log("in  create book");
     var book = await new Book(req.body).save();
     res.json({ "message": "create book",book });
     } catch (error) {

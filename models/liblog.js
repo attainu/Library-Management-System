@@ -3,21 +3,18 @@ var Schema = mongoose.Schema;
 var logSchema = new Schema(
     {
         userId: {
-        unique: true,
-        type: Number,
-        required: true,
-        trim: true
-      },
-      bookId: {
-        type: Number,
-        required: true,
-        trim: true
-      },
-        returnStatus:{
-          type:Boolean,
-          required:true
-      },
-      date:{
+            type: Schema.Types.ObjectId,
+            ref: "user"
+           },
+         bookId: {
+            type: Schema.Types.ObjectId,
+            ref: "Book"
+              },
+         returnStatus:{
+            type:Boolean,
+            required:true
+             },
+      issueDate:{
         type:Date,
         default:Date.now
       }

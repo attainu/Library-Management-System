@@ -9,7 +9,6 @@ logApiController.addToLog=async (req,res)=>{
     console.log(req.body.returnStatus);
     const newlog = new Log({
         userId: req.body.userId,
-        //userId:req.session.userId/adminId;
         bookId: req.body.bookId,
         returnStatus: req.body.returnStatus,
     });

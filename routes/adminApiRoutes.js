@@ -3,6 +3,7 @@ const router = express.Router();
 const {authenticate}=require('../middlewares/authenticate')
 const {adminRegister,adminLogin,adminUpdate,adminLogout,allAdmins,specificAdmin,deleteAdmin} = require('../controllers/adminApiController');
 
+//ALL CRUD ROUTES RELATED TO ADMIN
 router.post('/register', adminRegister);
 router.post('/login',adminLogin);
 router.patch('/:adminId',authenticate,adminUpdate)
@@ -13,6 +14,14 @@ router.delete('/:adminId',authenticate,deleteAdmin);
 
 
 module.exports = router;
+
+
+
+
+
+
+
+
 
 
 /*

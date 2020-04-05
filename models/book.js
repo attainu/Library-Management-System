@@ -15,10 +15,7 @@ var BookSchema = new mongoose.Schema({
     publisher:String,
     img:String,
     time : { type: Number, default: (new Date()).getTime() },
-    user: [{
-        type: Schema.Types.ObjectId,
-        ref: "user"
-    }]
+   
 },
 { timestamps: true }
 );

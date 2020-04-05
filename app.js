@@ -9,7 +9,7 @@ var bodyParser = require('body-parser')
 var indexRouter = require('./routes/indexrouters');
 var usersRouter = require('./routes/userrouters');
 var bookRouter = require('./routes/bookroutes');
-require('./modules/mongo');
+require('./models/mongo');
 var app = express();
 
 // view engine setup

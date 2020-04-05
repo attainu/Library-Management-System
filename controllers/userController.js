@@ -1,4 +1,4 @@
-var User = require('../modules/user');
+var User = require('../models/user');
 var bcrypt = require('bcrypt');
 const getAllUsers = async(req, res) => {
     // get all users

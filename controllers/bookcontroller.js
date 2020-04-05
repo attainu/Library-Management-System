@@ -1,4 +1,4 @@
-var Book = require('../modules/book');
+var Book = require('../models/book');
 const getAllBooks = async(req, res) => {
     // get all books
     const books = await Book.find({});

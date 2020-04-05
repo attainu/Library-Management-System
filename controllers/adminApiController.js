@@ -54,8 +54,8 @@ adminApiController.adminLogout = async(req, res)=> {
     };
 //GET BACK ALL ADMINS WHICH HELPS TO LOGIN
 adminApiController.allAdmins= async (req, res) => {
- 
-try{
+
+    try{
     const admins= await Admin.find({});
     res.json(admins);
    }
@@ -87,17 +87,11 @@ adminApiController.deleteAdmin= async (req, res) => {
    res.json({message:err});
  }
 };
-
-
-
  //GET BACK SPECIFIC ADMIN
  adminApiController.specificAdmin= async (req, res) => {
     console.log(req.params.adminId);
-    
- try{
-    
+    try{
     const admin=await Admin.findById(req.params.adminId);
-    console.log(admin);
     res.json(admin);
    }
  catch(err)  {

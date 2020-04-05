@@ -1,33 +1,24 @@
 const bcrypt = require('bcryptjs');
-const Admin = require('../models/admin');
 const Log=require('../models/liblog');
 const logApiController={};
 
+//ADD NEW RECORD INTO LOG BOOK
 logApiController.addToLog=async (req,res)=>{
-    console.log(req.body.userId);
-    console.log(req.body.bookId);
-    console.log(req.body.returnStatus);
-    const newlog = new Log({
-        userId: req.body.userId,
-        bookId: req.body.bookId,
-        returnStatus: req.body.returnStatus,
-    });
     try{
-        console.log("in side try");
-        const addedLog= await newlog.save();
-        console.log(addedLog);
-        res.json(addedLog);
+      const newlog = await new Log(req.body).save()
+      res.json(newlog);
        }
      catch(err)  {
         res.json({message:err});
      }
 };
 
+//UPDATE THE LOG BASED ON RETURN STATUS.CAN ONLY UPDATE RETURN STATUS
 logApiController.updateLog= async (req, res) => {
-    console.log(req.params.logId);
+    
    try{
-   const updatedLog=await Log.updateOne(
-       {_id:req.params.logId},
+    console.log(req.params.logId);
+     const updatedLog=await Log.updateOne({_id:req.params.logId},
        {$set:{returnStatus: req.body.returnStatus}});
         res.json(updatedLog);
   }
@@ -37,11 +28,12 @@ catch(err)  {
 };
 
 
-
+//GET BACK SPECIFIC LOG BASED ON ID 
 logApiController.specificLog= async (req, res) => {
-    console.log(req.params.logId);
+    
    try{
-   const specificLog=await Log.find({});
+   console.log(req.params.logId);
+   const specificLog=await Log.findOne({_id:req.params.logId});
      res.json(specificLog);
   }
 catch(err)  {
@@ -49,10 +41,11 @@ catch(err)  {
 }
 };
 
-
+//DELETE THE LOG BASED ON THE ID
 logApiController.deleteLog= async (req, res) => {
-    console.log(req.params.logId);
+    
     try{
+      console.log(req.params.logId);
       const removedLog=await Log.remove({_id:req.params.logId});
       res.json(removedLog);
     }
@@ -61,10 +54,15 @@ logApiController.deleteLog= async (req, res) => {
        }
   };
   
-
-
-
-
+  logApiController.all= async (req, res) => {
+    try{
+      const logs= await Log.find({});
+      res.json(logs);
+   }
+ catch(err)  {
+    res.json({message:err});
+  }};
+  
 
 
 

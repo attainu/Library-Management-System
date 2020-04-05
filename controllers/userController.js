@@ -16,9 +16,7 @@ const getUser = async (req,res) =>{
     }
 }
 const createUser = async(req, res) => {
-    console.log("creTE USER")
-    console.log(req.body);
-    //create a new user
+     //create a new user
     try {
        const user = await new User(req.body).save();
        res.json({ "message": "created user",user });

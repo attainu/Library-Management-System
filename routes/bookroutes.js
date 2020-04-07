@@ -1,17 +1,18 @@
 var express = require('express');
 var router = express.Router();
+const {authenticate}=require('../middlewares/authenticate')
 
 var bookController = require('../controllers/bookController');
 //get book list.
-router.get('/', bookController.getAllBooks);
+router.get('/',authenticate, bookController.getAllBooks);
 //get book detail by id.
-router.get('/:id', bookController.getBook);
+router.get('/:id',authenticate, bookController.getBook);
 //post a new book.
-router.post('/', bookController.createBook);
+router.post('/',authenticate, bookController.createBook);
 //update book by id
-router.put('/',bookController.updateBook);
+router.put('/',authenticate, bookController.updateBook);
 //delete book by id
-router.delete('/:id', bookController.deleteBook);
+router.delete('/:id',authenticate, bookController.deleteBook);
 
 
 module.exports = router;

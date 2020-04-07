@@ -16,11 +16,11 @@ var UserSchema = new mongoose.Schema({
         required: true
     },
 
-    // password: {
-    //     type: String,
-    //     trim: true,
-    //     required: true
-    // },
+    password: {
+        type: String,
+        trim: true,
+        required: true
+    },
     phoneno: {
         type: Number,
         unique: true,

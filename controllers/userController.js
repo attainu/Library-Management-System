@@ -37,7 +37,7 @@ const updateUser = async(req, res) => {
             condition.email = req.body.email
         }
         console.log(condition);
-        const result =await User.updateOne(condition,{name:req.body.name});
+        const result =await User.updateOne(condition,{...req.body});
         res.json({ "message": "update user",result });
     } catch (error) {
      console.log(error);

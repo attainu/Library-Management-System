@@ -9,7 +9,10 @@ var BookSchema = new mongoose.Schema({
         required: true
     },
     price: Number,
-    stock : Number,
+    stock :{
+        type:Number,
+        required: true
+    } ,
     auther:String,
     title : String,
     publisher:String,

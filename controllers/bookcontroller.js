@@ -34,7 +34,7 @@ const updateBook = async(req, res) => {
             condition._id = req.body._id;
         }
         console.log(condition);
-        const result =await Book.updateOne(condition,{name:req.body.name});
+        const result =await Book.updateOne(condition,{...req.body});
             res.json({ "message": "update book" ,result});
         
         

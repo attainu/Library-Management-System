@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 const path = require('path');
 const {authenticate}=require('../middlewares/authenticate');
-const UserController = require("../controllers/userController");
+const UserController = require(path.join(__dirname,'../','controllers/userController'));
 
 /* GET users listing. */
 router.get('/',authenticate, UserController.getAllUsers);

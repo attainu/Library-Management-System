@@ -33,8 +33,5 @@
     "mongoose": "^5.9.6",
     "morgan": "^1.10.0",
     "node-fetch": "^2.6.0"
-  },
-  "devDependencies": {
-    "nodemon": "^2.0.2"
   }
 }

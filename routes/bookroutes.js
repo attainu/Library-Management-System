@@ -3,7 +3,7 @@ var router = express.Router();
 var path = require('path');
 const { authenticate } = require('../middlewares/authenticate')
  
-var bookController = require(path.join(__dirname,'../','controllers/bookController'));
+const  bookController = require(path.join(__dirname,'../','controllers/bookController'));
 //get book list.
 router.get('/', authenticate, bookController.getAllBooks);
 //get book detail by id.

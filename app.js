@@ -9,7 +9,7 @@ const adminApiRoutes = require('./routes/adminApiRoutes');
 const logApiRoutes=require('./routes/logApiRoutes');
 var indexRouter = require('./routes/indexrouters');
 var usersRouter = require('./routes/userrouters');
-var bookRouter = require('./routes/bookroutes');
+//var bookRouter = require('./routes/bookroutes');
 require('./models/mongo');
 var app = express();
 
@@ -30,7 +30,7 @@ dotenv.config();
  app.use('/users', usersRouter);
  app.use('/admin',adminApiRoutes);
  app.use('/logs',logApiRoutes);
- app.use('/books', bookRouter);
+ //app.use('/books', bookRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

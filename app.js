@@ -3,8 +3,8 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
-var expressValidator = require('express-validator');
-var bodyParser = require('body-parser')
+// var expressValidator = require('express-validator');
+// var bodyParser = require('body-parser')
 const adminApiRoutes = require('./routes/adminApiRoutes');
 const logApiRoutes=require('./routes/logApiRoutes');
 var indexRouter = require('./routes/indexrouters');
@@ -28,9 +28,9 @@ dotenv.config();
 
  app.use('/', indexRouter);
  app.use('/users', usersRouter);
- app.use('/books', bookRouter);
  app.use('/admin',adminApiRoutes);
  app.use('/logs',logApiRoutes);
+ app.use('/books', bookRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

@@ -1,10 +1,12 @@
 var Book = require('../models/book');
-const getAllBooks = async(req, res) => {
+
+const bookApiController = {};
+bookApiController.getAllBooks = async(req, res) => {
     // get all books
     const books = await Book.find();
     res.json(books);
 }
-const getBook = async (req,res) =>{
+bookApiController.getBook = async (req,res) =>{
     try {
         // get one book by id 
         const book = await Book.find({_id:req.params.id});
@@ -14,7 +16,7 @@ const getBook = async (req,res) =>{
     }
 }
 
-const createBook = async(req, res) => {
+bookApiController.createBook = async(req, res) => {
     //create a new book
     try {
     var book = await new Book(req.body).save();
@@ -26,7 +28,7 @@ const createBook = async(req, res) => {
     
 }
 
-const updateBook = async(req, res) => {
+bookApiController.updateBook = async(req, res) => {
     //update book by id 
     try {
         let condition = {};
@@ -45,7 +47,7 @@ const updateBook = async(req, res) => {
    
 }
 
-const deleteBook =async (req, res) => {
+bookApiController.deleteBook =async (req, res) => {
     //delete book by id
     try {
         console.log(req.params.id);
@@ -59,12 +61,5 @@ const deleteBook =async (req, res) => {
 }
 
 
-module.exports = {
-    getAllBooks,
-    getBook,
-    createBook,
-    updateBook,
-    deleteBook,
-
-}
+module.exports = bookApiController;
 

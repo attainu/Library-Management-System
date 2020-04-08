@@ -1,7 +1,9 @@
 const express = require('express');
 const router = express.Router();
-const {authenticate}=require('../middlewares/authenticate')
-const UserController = require('../controllers/usercontroller');
+const path = require('path');
+const {authenticate}=require('../middlewares/authenticate');
+const UserController = require(path.join(__dirname,'../','controllers/userController'));
+
 /* GET users listing. */
 router.get('/',authenticate, UserController.getAllUsers);
 //get user detail by id.

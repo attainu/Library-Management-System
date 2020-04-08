@@ -1,7 +1,7 @@
-var Book = require('../modules/book');
+var Book = require('../models/book');
 const getAllBooks = async(req, res) => {
     // get all books
-    const books = await Book.find({});
+    const books = await Book.find();
     res.json(books);
 }
 const getBook = async (req,res) =>{
@@ -34,7 +34,7 @@ const updateBook = async(req, res) => {
             condition._id = req.body._id;
         }
         console.log(condition);
-        const result =await Book.updateOne(condition,{name:req.body.name});
+        const result =await Book.updateOne(condition,{...req.body});
             res.json({ "message": "update book" ,result});
         
         

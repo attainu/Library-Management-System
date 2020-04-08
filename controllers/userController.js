@@ -1,15 +1,15 @@
-var User = require('../modules/user');
+var User = require('../models/user');
 var bcrypt = require('bcrypt');
 const getAllUsers = async(req, res) => {
     // get all users
-    const users = await User.find({}).populate('book').exec();
+    const users = await User.find().populate('book').exec();
     res.json(users);
 }
 const getUser = async (req,res) =>{
     try {
         // get one user by id 
        
-        const user = await User.find({_id:req.params.id},{book:0,__v:0});
+        const user = await User.find({_id:req.params.id},{__v:0}).populate('book').exec();
         res.json(user);
     } catch (error) {
         res.status(400).json(error);
@@ -37,7 +37,7 @@ const updateUser = async(req, res) => {
             condition.email = req.body.email
         }
         console.log(condition);
-        const result =await User.updateOne(condition,{name:req.body.name});
+        const result =await User.updateOne(condition,{...req.body});
         res.json({ "message": "update user",result });
     } catch (error) {
      console.log(error);

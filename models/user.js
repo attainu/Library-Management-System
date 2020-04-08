@@ -21,20 +21,25 @@ var UserSchema = new mongoose.Schema({
         trim: true,
         required: true
     },
+    phoneno: {
+        type: Number,
+        unique: true,
+        lowercase: true,
+        trim: true,
+        required: true
+    },
+    address: {
+        type: String,
+        unique: true,
+        lowercase: true,
+        trim: true,
+        required: true
+    },
     book:
     {
         type: Schema.Types.ObjectId,
         ref: "Book"
     },
-    joined : {type: Date, default: Date.now()},
-    bookIssueInfo : [{
-        book_info : {
-           id : {
-              type : mongoose.Schema.Types.ObjectId,
-              ref : "Issue",
-           }, 
-        },
-     }],
      gender : String,
 
 },

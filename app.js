@@ -5,11 +5,12 @@ var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 var expressValidator = require('express-validator');
 var bodyParser = require('body-parser')
-
+const adminApiRoutes = require('./routes/adminApiRoutes');
+const logApiRoutes=require('./routes/logApiRoutes');
 var indexRouter = require('./routes/indexrouters');
 var usersRouter = require('./routes/userrouters');
 var bookRouter = require('./routes/bookroutes');
-require('./modules/mongo');
+require('./models/mongo');
 var app = express();
 
 // view engine setup
@@ -21,10 +22,15 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+var dotenv = require("dotenv");
+
+dotenv.config();
 
  app.use('/', indexRouter);
  app.use('/users', usersRouter);
  app.use('/books', bookRouter);
+ app.use('/admin',adminApiRoutes);
+ app.use('/logs',logApiRoutes);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

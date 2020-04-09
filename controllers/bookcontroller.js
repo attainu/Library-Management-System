@@ -1,65 +1,56 @@
-var Book = require('../models/book');
-
-const bookApiController = {};
-bookApiController.getAllBooks = async(req, res) => {
-    // get all books
-    const books = await Book.find();
-    res.json(books);
-}
-bookApiController.getBook = async (req,res) =>{
-    try {
-        // get one book by id 
-        const book = await Book.find({_id:req.params.id});
-        res.json(book);
-    } catch (error) {
-        res.status(400).json(error);
-    }
-}
-
-bookApiController.createBook = async(req, res) => {
-    //create a new book
-    try {
-    var book = await new Book(req.body).save();
-    res.json({ "message": "create book",book });
-    } catch (error) {
-        console.log(error)
-        res.status(400).json(error);
-    }
-    
-}
-
-bookApiController.updateBook = async(req, res) => {
-    //update book by id 
-    try {
-        let condition = {};
-        if(req.body._id){
-            condition._id = req.body._id;
+var models = require('../models/sequelize');
+module.exports = {
+    async createBook(req, res) {
+        try {
+            var result = await models.Book.create({ ...req.body })
+            res.json(result);
+        } catch (err) {
+            console.log(err)
+            if (err.name === "SequelizeValidationError")
+                return res.status(400).send(`Validation Error: ${err.message}`)
         }
-        console.log(condition);
-        const result =await Book.updateOne(condition,{...req.body});
-            res.json({ "message": "update book" ,result});
-        
-        
-    } catch (error) {
-     console.log(error);
-     res.status(400).json(error);   
-    }
-   
+    },
+
+    async deleteBook(req, res) {
+        try {
+            await models.Book.destroy({ where: {id:req.params.id} } )
+            res.json({message:"book deleted"})
+        } catch (err) {
+            console.log(err)
+            if (err.name === "SequelizeValidationError")
+                return res.status(400).send(`Validation Error: ${err.message}`)
+        }
+    },
+    async updateBook(req, res) {
+        try {
+           await models.Book.update({ stock: req.body.stock },{  where: {id:req.params.id} })
+             res.json({message : "book updated"})
+        } catch (err) {
+            console.log(err)
+            if (err.name === "SequelizeValidationError")
+                return res.status(400).send(`Validation Error: ${err.message}`)
+        }
+    },
+    async getAllBook(req, res) {
+        try {
+            var results = await models.Book.findAll();
+            res.json(results);
+
+        } catch (err) {
+            console.log(err)
+            if (err.name === "SequelizeValidationError")
+                return res.status(400).send(`Validation Error: ${err.message}`)
+        }
+    },
+    async getBook(req,res){
+        try{
+           var result = await models.Book.findOne({where:{id:req.params.id}});
+            res.json(result);
+        } catch (err) {
+            console.log(err)
+            if (err.name === "SequelizeValidationError")
+                return res.status(400).send(`Validation Error: ${err.message}`)
+        }
+    } 
 }
-
-bookApiController.deleteBook =async (req, res) => {
-    //delete book by id
-    try {
-        console.log(req.params.id);
-    const result =  await Book.deleteOne({_id:req.params.id});
-    res.json({ "message": "delete book" , result });
-    } catch (error) {
-        console.log(error);
-        res.status(400).json(error);
-    }
-    
-}
-
-
-module.exports = bookApiController;
 

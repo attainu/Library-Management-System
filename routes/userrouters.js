@@ -1,18 +1,14 @@
 const express = require('express');
+const bcrypt = require('bcrypt');
+const {authenticate}=require('../middleware/authenticate');
 const router = express.Router();
-const path = require('path');
-const {authenticate}=require('../middlewares/authenticate');
-const UserController = require(path.join(__dirname,'../','controllers/userController'));
+var userController = require("../controllers/usercontroller");
 
-/* GET users listing. */
-router.get('/',authenticate, UserController.getAllUsers);
-//get user detail by id.
-router.get('/:id',authenticate, UserController.getUser);
-//create a new user.
-router.post('/',authenticate, UserController.createUser);
-//update user by id.
-router.put('/',authenticate, UserController.updateUser);
-//delete user by id.
-router.delete('/:id',authenticate, UserController.deleteUser);
+router.post('/',  authenticate, userController.createUser)
+router.delete('/:id',authenticate,  userController.deleteUser)
+router.put('/:id', authenticate, userController.updateUser)
+
+router.get('/', authenticate, userController.getAllUser)
+router.get('/:id', authenticate, userController.getUser)
 
 module.exports = router;

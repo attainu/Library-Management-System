@@ -1,27 +1,26 @@
-var mongoose = require('mongoose');
-//schema for book
-var Schema = mongoose.Schema
-var BookSchema = new mongoose.Schema({
-    name: {
-        type: String,
-        lowercase: true,
-        trim: true,
-        required: true
-    },
-    price: Number,
-    stock :{
-        type:Number,
-        required: true
-    } ,
-    auther:String,
-    title : String,
-    publisher:String,
-    img:String,
-    time : { type: Number, default: (new Date()).getTime() },
-   
-},
-{ timestamps: true }
-);
-var Book = mongoose.model('Book', BookSchema);
-
-module.exports = Book;
+module.exports = (sequelize, DataTypes) => {
+    var Book = sequelize.define('Book', {
+        title: DataTypes.STRING,
+        name: {
+            type: DataTypes.STRING,
+            allowNull: false
+          },
+        price: DataTypes.DOUBLE,
+        stock: {
+            type: DataTypes.INTEGER,
+            allowNull: false
+          },
+        auther: {
+            type: DataTypes.STRING,
+            allowNull: false
+          },
+        title: DataTypes.STRING,
+        publisher: DataTypes.STRING,
+        img: DataTypes.STRING,
+    },{
+        freezeTableName: true
+    });
+    // sync table if you are running this first time so it create a table in db
+   // Book.sync({ force: true });
+    return Book;
+};

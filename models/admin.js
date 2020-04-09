@@ -1,85 +1,55 @@
-var mongoose = require('mongoose');
-var bcrypt = require('bcryptjs');
-var Schema = mongoose.Schema;
+//const sequelize = require("../db");
+var models = require('../models/sequelize');
+const { hash, compare } = require("bcryptjs");
+const {Sequelize,Model}=require('sequelize');
 
-//CREATE ADMIN SCHEMA
-var adminSchema = new Schema(
-    {
-        adminName: {
-        type: String,
-        required: true,
-        trim: true
+module.exports = (sequelize, DataTypes) => {
+  const Admin = sequelize.define('Admin', {
+    name: {
+      type: DataTypes.STRING,
+      allowNull: false
+    },
+    email: {
+      type: DataTypes.STRING,
+      unique: true,
+      allowNull: false
+    },
+    password: {
+      type: DataTypes.STRING,
+      allowNull: false
+    },
+    address: {
+        type: DataTypes.STRING,
+        allowNull: false
       },
-      adminEmailId: {
-        unique: true,
-        type: String,
-        required: true,
-        trim: true
-      },
-      adminPassword: {
-        type: String,
-        required: true,
-        trim: true
-      },
-      adminAddress:{
-          type:String,
-          required:true
-      },
-      adminPhoneNo:{
-          type:Number,
-          required:true
-      },
-      date:{
-        type:Date,
-        default:Date.now
+      phoneno: {
+        type: DataTypes.INTEGER,
+        allowNull: false
       },
       jwt:{
-        type:String,
-        required:false,
-        default:null
+        type: DataTypes.STRING(1234),
+        allowNull:true
       }
-    }
-     );
-
-
-//DEFINE PRE METHOD TO HASH PASSWORD 
-adminSchema.pre('save', function (next) {
-    var admin = this;
-    if(admin.isModified('adminPassword')){
-      bcrypt.hash(admin.adminPassword, 10)
-    .then(function (hashedPassword) {
-      console.log(hashedPassword);  
-        admin.adminPassword = hashedPassword;
-        next();
-
-    })
-    .catch((err)=>{
-      next(err)
-    })
-    }
-    else{
-      next();
-    }
-    
   });
-  /*
-  userSchema.pre("save", function(next) {
-    var user = this;
-    // Check whether password field is modified
-    if (user.isModified("password")) {
-      bcrypt
-        .hash(user.password, 10)
-        .then(function(hashedPassword) {
-          user.password = hashedPassword;
-          next();
-        })
-        .catch(function(err) {
-          next(err);
-        });
+  /*Admin.beforeCreate(async admin => {
+    const hashedPassword = await hash(admin.password, 10);
+    admin.password = hashedPassword;
+  });*/
+
+  /*Admin.beforeUpdate(async admin => {
+    if (admin.password) {
+      const hashedPassword = await hash(admin.password, 10);
+      admin.password = hashedPassword;
     }
   });*/
-  
-
-var Admin = mongoose.model("admin", adminSchema);
-module.exports = Admin;
-
+ 
+  // Admin.associate = (models) => {
+  //   Admin.hasOne(models.Book, {
+  //     foreignKey: 'bookId',
+  //     as: 'book',
+  //   });
+  // };
+  // sync table if you are running this first time so it create a table in db
+  //Admin.sync({ force: true });
+  return Admin;
+};

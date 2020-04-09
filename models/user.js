@@ -1,51 +1,49 @@
-var mongoose = require('mongoose');
-//schema for user(student)
-var Schema = mongoose.Schema
-var UserSchema = new mongoose.Schema({
+//const sequelize = require("../db");
+var models = require('../models/sequelize');
+const { hash, compare } = require("bcryptjs");
+module.exports = (sequelize, DataTypes) => {
+  var User = sequelize.define('User', {
     name: {
-        type: String,
-        lowercase: true,
-        trim: true,
-        required: true
+      type: DataTypes.STRING,
+      allowNull: false
     },
     email: {
-        type: String,
-        unique: true,
-        lowercase: true,
-        trim: true,
-        required: true
+      type: DataTypes.STRING,
+      unique: true,
+      allowNull: false
     },
-
-    password: {
-        type: String,
-        trim: true,
-        required: true
+    bookId: {
+      type: DataTypes.INTEGER,
+      allowNull: true
     },
     phoneno: {
-        type: Number,
-        unique: true,
-        lowercase: true,
-        trim: true,
-        required: true
+      type: DataTypes.STRING,
+      allowNull: false
     },
-    address: {
-        type: String,
-        unique: true,
-        lowercase: true,
-        trim: true,
-        required: true
+    address:{
+      type: DataTypes.STRING,
+      allowNull: false
     },
-    book:
-    {
-        type: Schema.Types.ObjectId,
-        ref: "Book"
-    },
-     gender : String,
+  });
+  /*
+  User.beforeCreate(async user => {
+    const hashedPassword = await hash(user.password, 10);
+    user.password = hashedPassword;
+  });
 
-},
-    { timestamps: true }
-);
-
-var User = mongoose.model('user', UserSchema);
-
-module.exports = User;
+  User.beforeUpdate(async user => {
+    if (user.password) {
+      const hashedPassword = await hash(user.password, 10);
+      user.password = hashedPassword;
+    }
+  });*/
+  // User.associate = (models) => {
+  //   User.hasOne(models.Book, {
+  //     foreignKey: 'bookId',
+  //     as: 'selfJoin',
+  //   });
+  // };
+  // sync table if you are running this first time so it create a table in db
+   //User.sync({ force: true });
+  return User;
+};
